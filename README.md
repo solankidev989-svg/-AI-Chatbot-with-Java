@@ -1,53 +1,129 @@
-# AI Chatbot — Java Swing + Gemini API
+# 🤖 AI Chatbot — Java Swing + Gemini API
 
-A desktop chatbot built with Java Swing that sends your messages to Google's
-Gemini API and shows the AI's reply in a chat window.
+A desktop AI chatbot built with **Java Swing** that connects to Google's **Gemini API** and displays AI-generated responses in a simple, user-friendly chat interface.
 
-## Files
-- `ChatbotGUI.java` — the Swing UI (chat window, input box, Send button) and `main()`
-- `GeminiAPI.java` — talks to the Gemini API over HTTP and reads the reply
+## ✨ Features
 
-## 1. Get a free API key
-1. Go to https://aistudio.google.com/apikey
-2. Sign in with a Google account and click "Create API key" (no credit card needed)
-3. Copy the key (starts with `AIza...`)
+* 🤖 AI-powered conversations using Gemini API
+* 🖥️ Java Swing graphical interface
+* 💬 Real-time chat interface
+* ⚡ Background API calls using `SwingWorker`
+* 🌐 HTTP communication using Java `HttpClient`
+* 🔐 API key through environment variable
+* 📦 JSON request/response handling
+* 🚫 No external Java libraries required
 
-## 2. Compile
+## 📁 Project Files
+
+```text
+AI-Chatbot/
+├── ChatbotGUI.java
+├── GeminiAPI.java
+└── README.md
 ```
+
+### `ChatbotGUI.java`
+
+Contains the Swing user interface, chat window, input field, Send button, and application `main()` method.
+
+### `GeminiAPI.java`
+
+Handles communication with the Gemini API, sends user messages, and processes the AI response.
+
+## 🔑 Setup
+
+### 1. Get a Gemini API Key
+
+Create an API key from Google's AI Studio.
+
+**Important:** Never upload your API key to GitHub or put it directly inside your Java source code.
+
+### 2. Set the API Key
+
+**Windows CMD:**
+
+```cmd
+set GEMINI_API_KEY=your_api_key_here
+```
+
+**Windows PowerShell:**
+
+```powershell
+$env:GEMINI_API_KEY="your_api_key_here"
+```
+
+**Linux/macOS:**
+
+```bash
+export GEMINI_API_KEY=your_api_key_here
+```
+
+### 3. Compile
+
+```bash
 javac ChatbotGUI.java GeminiAPI.java
 ```
 
-## 3. Run
-```
+### 4. Run
+
+```bash
 java ChatbotGUI
 ```
-On first launch it will ask you to paste the API key (or set it once as an
-environment variable so you're not asked every time):
-```
-export GEMINI_API_KEY=your_key_here      # Linux/macOS
-set GEMINI_API_KEY=your_key_here         # Windows cmd
-```
 
-## How it works (for viva / explanation)
-1. **UI (`ChatbotGUI`)** — `JTextPane` shows the chat history, `JTextField` +
-   `JButton` take input. Pressing Enter or Send calls `onSend()`.
-2. **Background call** — the API call runs on a `SwingWorker`, not the UI
-   thread, so the window doesn't freeze while waiting for a reply.
-3. **Request (`GeminiAPI.getReply`)** — builds a small JSON body with the
-   user's message and sends it with `java.net.http.HttpClient` (built into
-   the JDK — no external library needed) to Gemini's `generateContent`
-   endpoint, with the API key in the `x-goog-api-key` header.
-4. **Response parsing** — `extractStringField()` is a small hand-written
-   JSON reader that pulls the `"text"` value out of Gemini's reply (or the
-   `"message"` field if there's an error). It's written by hand instead of
-   using a JSON library, so the project has zero external dependencies.
-5. **Display** — the reply is appended to the chat pane, styled in a
-   different color from the user's messages.
+## ⚙️ How It Works
 
-## Notes
-- Model used: `gemini-2.5-flash` (Google's current free-tier model). If
-  Google renames or retires it, change the `MODEL` constant at the top of
-  `GeminiAPI.java`.
-- Free tier has a rate limit (a handful of requests per minute) — if you see
-  a `429` error, wait a few seconds and try again.
-- Needs an internet connection to reach the API.
+1. **User Interface** — `ChatbotGUI` provides the chat window, input field, and Send button.
+2. **User Message** — When the user presses Send or Enter, the message is passed to the API layer.
+3. **Background Request** — `SwingWorker` performs the API request without freezing the Swing interface.
+4. **Gemini API** — `GeminiAPI` sends the user's message to Gemini using Java's built-in `HttpClient`.
+5. **Response Processing** — The API response is processed and the generated text is extracted.
+6. **Display** — The AI response is displayed in the chat window.
+
+## 🛠️ Technologies
+
+* Java
+* Java Swing
+* Object-Oriented Programming
+* HTTP Client
+* REST API
+* JSON
+* SwingWorker
+* Gemini API
+* Git & GitHub
+
+## 🎓 Learning Objectives
+
+This project demonstrates practical use of:
+
+* Java OOP
+* GUI development
+* API integration
+* HTTP requests
+* JSON processing
+* Exception handling
+* Multithreading/background tasks
+* Git and GitHub
+
+## 🔮 Future Improvements
+
+* 💾 Save chat history
+* 🔐 User authentication
+* 🌙 Dark mode
+* 🎙️ Voice input
+* 📎 File support
+* 🌐 Multi-language support
+* 🧠 Conversation memory
+
+## ⚠️ Important
+
+An active internet connection is required to communicate with the Gemini API.
+
+API availability, model names, pricing, and rate limits may change over time. Check Google's current Gemini API documentation for the latest information.
+
+## 👨‍💻 Author
+
+**Dev Solanki**
+
+---
+
+⭐ If you find this project useful, consider giving the repository a star!
